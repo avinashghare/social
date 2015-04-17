@@ -17,14 +17,14 @@
 $myserver=$_SERVER['SERVER_NAME'];
 
 //if($myserver=="www.mafiawarloots.com" || $myserver=="www.wohlig.biz" || $myserver=="mafiawarloots.com" || $myserver=="wohlig.biz")
-if($myserver!="localhost")
-{
-$myconfig= base64_decode(file_get_contents("/home/mafiawarloots/config/createo.png"));
-}
-else
-{
-$myconfig= file_get_contents("C:/xampp/htdocs/config/config.json");
-}
+//if($myserver!="localhost")
+//{
+//$myconfig= base64_decode(file_get_contents("/home/mafiawarloots/config/createo.png"));
+//}
+//else
+//{
+//$myconfig= file_get_contents("C:/xampp/htdocs/config/config.json");
+//}
 //$config['myconfig']=json_decode($myconfig);
 //
 //$myconfig=json_decode($myconfig);
