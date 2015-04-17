@@ -51,7 +51,6 @@ $endurl="http://".$endurl;
                                             'region'=> urlencode($user_profile->region),
                                             'city'=> urlencode($user_profile->city),
                                             'country'=> urlencode($user_profile->country),
-                                            'user_profile'=> urlencode($user_profile->user_profile),
                                             'provider' => urlencode($provider)
                                     );
 
