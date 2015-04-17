@@ -37,8 +37,21 @@ $endurl="http://".$endurl;
                     $url = $curlurl;
 //                    $url = base_url("email/forgetpasswordemail.php");
                     
+                    
+                    
                     $fields = array(
-                                            'user_profile' => urlencode($user_profile),
+                                            'displayName'=> urlencode($user_profile->displayName),
+                                            'email'=> urlencode($user_profile->email),
+                                            'photoURL'=> urlencode($user_profile->photoURL),
+                                            'identifier'=> urlencode($user_profile->identifier),
+                                            'birthYear'=> urlencode($user_profile->birthYear),
+                                            'birthMonth'=> urlencode($user_profile->birthMonth),
+                                            'birthDay'=> urlencode($user_profile->birthDay),
+                                            'address'=> urlencode($user_profile->address),
+                                            'region'=> urlencode($user_profile->region),
+                                            'city'=> urlencode($user_profile->city),
+                                            'country'=> urlencode($user_profile->country),
+                                            'user_profile'=> urlencode($user_profile->user_profile),
                                             'provider' => urlencode($provider)
                                     );
 
