@@ -31,7 +31,9 @@ class HAuth extends CI_Controller {
                     $clientquery=$this->db->query("SELECT * FROM `social_client` WHERE `id`='$clientid'")->row();
                     $curlurl=$clientquery->curlurl;
                     $redirecturl=$clientquery->redirecturl;
-                    $endurl=$clientquery->endurl;
+
+                    $endurl=$clientquery->endpoint;
+$endurl="http://".$endurl;
                     $url = $curlurl;
 //                    $url = base_url("email/forgetpasswordemail.php");
                     
@@ -56,7 +58,9 @@ class HAuth extends CI_Controller {
                     $userid = curl_exec($ch);
                     
 //                    $sociallogin=$this->user_model->sociallogin($user_profile,$provider);
+                    $endurl=urlencode($endurl);
                     $redirecturl=$redirecturl."?id=".$userid."&endurl=".$endurl;
+                    echo $redirecturl;
                     redirect($redirecturl);
 
 					// $data['message'] = $sociallogin;
