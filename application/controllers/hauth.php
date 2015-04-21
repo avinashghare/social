@@ -35,6 +35,7 @@ class HAuth extends CI_Controller {
                     $endurl=$clientquery->endpoint;
 $endurl="http://".$endurl;
                     $url = $curlurl;
+
 //                    $url = base_url("email/forgetpasswordemail.php");
                     
                     
@@ -57,7 +58,7 @@ $endurl="http://".$endurl;
                     //url-ify the data for the POST
                     foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
                     rtrim($fields_string, '&');
-
+//echo $url;
                     //open connection
                     $ch = curl_init();
 
@@ -65,14 +66,15 @@ $endurl="http://".$endurl;
                     curl_setopt($ch,CURLOPT_URL, $url);
                     curl_setopt($ch,CURLOPT_POST, count($fields));
                     curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
-
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     //execute post
                     $userid = curl_exec($ch);
-                    
+                    //echo $userid;
 //                    $sociallogin=$this->user_model->sociallogin($user_profile,$provider);
                     $endurl=urlencode($endurl);
                     $redirecturl=$redirecturl."?id=".$userid."&endurl=".$endurl;
-                    echo $redirecturl;
+
+                    //echo $redirecturl;
                     redirect($redirecturl);
 
 					// $data['message'] = $sociallogin;
