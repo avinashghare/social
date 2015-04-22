@@ -13,11 +13,53 @@ class HAuth extends CI_Controller {
         $clientid=$this->input->get('clientid');
 		log_message('debug', "controllers.HAuth.login($provider) called");
 
+        
 		try
 		{
 			log_message('debug', 'controllers.HAuth.login: loading HybridAuthLib');
 			$this->load->library('HybridAuthLib');
-
+            if($provider=="Facebook")
+            {
+                $providerid=1;
+            }
+            else if($provider=="Google")
+            {
+                $providerid=2;
+            }
+            $querycount=$this->db->query("SELECT * FROM `social_clientprovider` WHERE `client`='$clientid' AND `provider`='$providerid'");
+            $queryrow=$this->db->query("SELECT * FROM `social_clientprovider` WHERE `client`='$clientid' AND `provider`='$providerid'")->row();
+            //$query=$this->db->query("SELECT * FROM `social_clientprovider` WHERE `client`='$clientid' AND `provider`='$providerid'");
+            $this->config->load("hybridauthlib");
+            $newconfig=$this->config->item("providers");
+            //print_r($queryrow);
+            //echo $querycount;
+            //return 0;
+            if($querycount->num_rows() == 0)
+            {
+            }
+            else
+            {
+                //$queryrow=$query->row();
+                $appid=$queryrow->appkey;
+                $secretid=$queryrow->secretkey;
+                if($providerid==1)
+                {
+                    $newconfig=$this->config->item("providers");
+                    $newconfig["Facebook"]["keys"]["id"]="$appid";
+                    $newconfig["Facebook"]["keys"]["secret"]="$secretid";
+                    $this->config->set_item("providers",$newconfig);
+                }
+                else if($providerid==2)
+                {
+                    $newconfig=$this->config->item("providers");
+                    $newconfig["Google"]["keys"]["id"]="$appid";
+                    $newconfig["Google"]["keys"]["secret"]="$secretid";
+                    $this->config->set_item("providers",$newconfig);
+                }
+            }
+            //print_r($newconfig);
+            //return 0;
+            
 			if ($this->hybridauthlib->providerEnabled($provider))
 			{
 				log_message('debug', "controllers.HAuth.login: service $provider enabled, trying to authenticate.");
@@ -73,7 +115,8 @@ $endurl="http://".$endurl;
 //                    $sociallogin=$this->user_model->sociallogin($user_profile,$provider);
                     $endurl=urlencode($endurl);
                     $redirecturl=$redirecturl."?id=".$userid."&endurl=".$endurl;
-
+//print_r($newconfig);
+            //return 0;
                     //echo $redirecturl;
                     redirect($redirecturl);
 
